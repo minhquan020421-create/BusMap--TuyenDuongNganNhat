@@ -1,0 +1,17 @@
+// Dữ liệu mô phỏng phục vụ đồ án; không phải tuyến xe chính thức.
+window.BUS_DATA = {
+  transferPenaltyKm: 1.5, averageSpeedKmh: 20,
+  stops: [
+    ['BT','Bến Thành',10.7725,106.6980,'Quận 1'],['HN','Hàm Nghi',10.7709,106.7021,'Quận 1'],['PA','Pasteur',10.7781,106.6991,'Quận 1'],['DL','Dinh Độc Lập',10.7771,106.6953,'Quận 1'],['NT','Nhà thờ Đức Bà',10.7798,106.6990,'Quận 1'],['CV','Công viên 23/9',10.7684,106.6913,'Quận 1'],['NS','Ngã sáu Dân Chủ',10.7766,106.6815,'Quận 3'],['T2','Ba Tháng Hai',10.7722,106.6752,'Quận 10'],['BK','Đại học Bách Khoa',10.7734,106.6599,'Quận 10'],['LT','Lý Thường Kiệt',10.7691,106.6574,'Quận 10'],['AD','Chợ An Đông',10.7572,106.6731,'Quận 5'],['CL','Chợ Lớn',10.7510,106.6500,'Quận 5'],['BX8','Bến xe Quận 8',10.7331,106.6527,'Quận 8'],['PV','Phạm Thế Hiển',10.7446,106.6704,'Quận 8'],['NP','Nguyễn Tri Phương',10.7615,106.6689,'Quận 10'],['LH','Lê Hồng Phong',10.7646,106.6784,'Quận 10'],['HX','Hàng Xanh',10.8027,106.7113,'Bình Thạnh'],['DB','Điện Biên Phủ',10.7926,106.7017,'Bình Thạnh'],['MD','Bến xe Miền Đông',10.8150,106.7123,'Bình Thạnh'],['TD','Thảo Điền',10.8031,106.7307,'Thủ Đức'],['SG','Cầu Sài Gòn',10.7981,106.7214,'Bình Thạnh'],['VT','Văn Thánh',10.7950,106.7164,'Bình Thạnh'],['GL','Gia Định',10.8031,106.6861,'Phú Nhuận'],['PN','Phú Nhuận',10.7934,106.6786,'Phú Nhuận'],['TB','Tân Bình',10.7950,106.6544,'Tân Bình'],['TDL','Công viên Lê Thị Riêng',10.7845,106.6650,'Quận 10']
+  ],
+  routes: [
+    {id:'03',color:'#a855f7',name:'Bến Thành – Thảo Điền',stops:['BT','PA','NT','DB','HX','SG','TD'],fare:7000,hours:'05:00 – 21:00'},
+    {id:'08',color:'#247bff',name:'Bến xe Quận 8 – Đại học Bách Khoa',stops:['BX8','PV','AD','NP','LT','BK'],fare:7000,hours:'05:00 – 21:00'},
+    {id:'21',color:'#ef4444',name:'Bến xe Miền Đông – Chợ Lớn',stops:['MD','HX','DB','PA','DL','NS','LH','AD','CL'],fare:7000,hours:'05:00 – 21:00'},
+    {id:'26',color:'#00c853',name:'Bến Thành – Bình Thạnh',stops:['BT','HN','PA','DB','VT','SG','HX','MD'],fare:7000,hours:'05:00 – 21:00'},
+    {id:'28',color:'#f5b900',name:'Chợ An Đông – Bến Thành',stops:['AD','LH','T2','NS','CV','BT'],fare:7000,hours:'05:00 – 21:00'},
+    {id:'32',color:'#1ea5f5',name:'Bến Thành – Công viên Lê Thị Riêng',stops:['BT','DL','NS','T2','TDL'],fare:7000,hours:'05:00 – 21:00'},
+    {id:'52',color:'#f97316',name:'Tân Bình – Bến xe Miền Đông',stops:['TB','TDL','PN','GL','HX','MD'],fare:7000,hours:'05:00 – 21:00'},
+    {id:'56',color:'#ec4899',name:'Chợ Lớn – Tân Bình',stops:['CL','LT','BK','TDL','TB'],fare:7000,hours:'05:00 – 21:00'}
+  ]
+};

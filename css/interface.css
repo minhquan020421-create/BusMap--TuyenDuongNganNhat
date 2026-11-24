@@ -1,0 +1,130 @@
+/* Shared navigation and interaction states */
+#header { position: sticky; inset-block-start: 0; z-index: 1000; }
+.skip { position: fixed; left: 12px; top: -5rem; z-index: 1100; background: var(--card); padding: 10px; }
+.skip:focus { top: 10px; }
+#sound { border-radius: 50%; }
+#sound[aria-pressed="true"] { color: var(--accent); }
+.theme button { min-width: 30px; min-height: 30px; }
+:where(button, a) { touch-action: manipulation; }
+:where(button, a):focus-visible { outline-offset: 4px; }
+.home-content .section > .spread { margin-bottom: 14px; }
+.home-content { padding-bottom: 42px; }
+.hero-search { margin-top: 24px; }
+
+/* Information pages share the palette, icons and controls of the transit screens. */
+.reader-layout {
+  display: grid;
+  grid-template-columns: 224px minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 64px);
+  max-width: 1400px;
+  margin-inline: auto;
+  padding: 32px clamp(18px, 4vw, 64px) 64px;
+}
+.reader-layout .info-nav {
+  position: sticky; top: calc(var(--header-height) + 24px);
+  padding: 8px; gap: 3px;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 16px;
+}
+.info-nav a { min-height: 44px; font-size: 13px; }
+.reader { min-width: 0; display: grid; align-content: start; gap: 18px; }
+.reader-head { padding: 3px 0 8px; }
+.reader-head h1 { font-size: clamp(29px, 3.3vw, 48px); letter-spacing: -.045em; line-height: 1.18; }
+.reader-head p, .reader .card p, .reader .card li, .waiting p {
+  color: var(--muted); line-height: 1.7; font-size: 14px;
+}
+.reader-head p { max-width: 65ch; margin-top: 10px; }
+.reader .card { border-radius: 16px; padding: clamp(18px, 2.3vw, 30px); }
+.reader h2 { line-height: 1.35; letter-spacing: -.025em; font-size: clamp(18px, 1.6vw, 23px); }
+.reader h2 .ico { margin-right: 5px; color: var(--accent); }
+.reader .card p { margin-top: 10px; }
+.reader .card a { margin-top: 16px; display: inline-flex; gap: 5px; align-items: center; }
+.reader .card strong { color: var(--text); }
+.cover { margin: 0; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; background: var(--card); }
+.cover img { display: block; width: 100%; height: clamp(200px, 24vw, 330px); object-fit: cover; object-position: 50% 47%; }
+.reading-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.guide-steps, .stories { display: grid; gap: 15px; }
+.guide-row { display: grid; grid-template-columns: 46px minmax(0, 1fr); gap: 16px; }
+.step-no { align-self: start; padding: 8px; border: 1px solid var(--line); border-radius: 10px; text-align: center; color: var(--accent); font-weight: 750; font-variant-numeric: tabular-nums; }
+.reader .story { display: grid; grid-template-columns: minmax(160px, 34%) 1fr; padding: 0; overflow: hidden; scroll-margin-top: calc(var(--header-height) + 16px); }
+.story > div, .destination-card > div { padding: 22px; }
+.story img { width: 100%; height: 100%; min-height: 170px; object-fit: cover; }
+.destination-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr)); gap: 14px; }
+.reader .destination-card { padding: 0; overflow: hidden; }
+.destination-card img { display: block; width: 100%; aspect-ratio: 1.8; object-fit: cover; }
+.destination-card > div { padding: 17px; }
+.feedback-card { display: grid; gap: 12px; }
+.feedback-card label { font-size: 17px; font-weight: 650; }
+.feedback-card textarea { min-height: 165px; }
+.feedback-card button { justify-self: start; }
+.feedback-card [role="status"]:empty { display: none; }
+
+/* Dijkstra walkthrough */
+.reader .lab { padding: 0; overflow: hidden; }
+.lab-heading, .lab-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 22px; }
+.lab-heading { border-bottom: 1px solid var(--line); }
+.lab-unit { color: var(--muted); font-size: 12px; }
+.lab-body { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(210px, 1fr); }
+.graph-canvas { display: grid; align-items: center; padding: 9px; background-color: #102c25; background-image: radial-gradient(#326453 1px, transparent 1px); background-size: 18px 18px; }
+.graph-canvas svg { width: 100%; height: auto; display: block; }
+.tracks path { stroke: #728f83; stroke-width: 3; fill: none; }
+.tracks .traced { stroke: #52ea94; stroke-width: 5; }
+.vertex circle { fill: #193a30; stroke: #a2c1b4; stroke-width: 2px; }
+.vertex text { text-anchor: middle; dominant-baseline: central; fill: #edf5f2; font-size: 17px; font-weight: 700; }
+.vertex.settled circle { fill: #126d43; stroke: #77f5ac; stroke-width: 3px; }
+.edge-cost text { font-size: 16px; font-weight: 700; text-anchor: middle; fill: #ecfff5; stroke: #102c25; stroke-width: 7px; paint-order: stroke; }
+.lab-reading { align-self: center; padding: 19px 22px; }
+.lab-reading > small { color: var(--accent); font-weight: 650; }
+.lab-reading h3 { margin-top: 7px; font-size: 21px; }
+.lab-reading p { min-height: 4.9em; }
+.distances { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin: 12px 0 0; }
+.distances div { padding: 7px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; text-align: center; }
+.distances dt { font-size: 11px; color: var(--muted); }
+.distances dd { margin: 3px 0 0; font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.lab-actions { border-top: 1px solid var(--line); }
+.lab-actions button:disabled { opacity: .45; cursor: default; }
+.formula { display: grid; gap: 8px; margin-top: 15px; padding: 15px; border-left: 3px solid var(--accent); border-radius: 4px; background: var(--bg); }
+.formula code { overflow-wrap: anywhere; }
+.article-copy ul { margin: 10px 0 0; padding-left: 19px; }
+.article-copy li + li { margin-top: 6px; }
+.placeholder-fields { display: grid; gap: 8px; }
+.placeholder-fields .field input:disabled { opacity: 1; }
+.waiting { margin-top: 18px; }
+.waiting h2 { font-size: 17px; }
+.waiting p { margin: 7px 0 15px; }
+.blank-map { display: grid; place-items: center; min-height: 300px; padding: 20px; background-color: #e0ede6; background-image: linear-gradient(30deg, transparent 48%, #ffffff73 49% 51%, transparent 52%), linear-gradient(120deg, transparent 48%, #ffffff73 49% 51%, transparent 52%); background-size: 88px 88px; color: #1c4736; }
+.blank-map > div { max-width: 340px; text-align: center; padding: 25px; border-radius: 15px; background: #f7fcf8ee; border: 1px solid #bad2c5; }
+.blank-map .ico { width: 30px; height: 30px; margin-bottom: 9px; }
+.blank-map p { margin-top: 7px; color: #496858; }
+
+@media (max-width: 960px) {
+  .reader-layout { grid-template-columns: 185px minmax(0, 1fr); gap: 18px; padding-inline: 16px; }
+  .lab-body { grid-template-columns: 1fr; }
+  .graph-canvas svg { max-height: 220px; }
+  .lab-reading p { min-height: 0; }
+}
+@media (max-width: 760px) {
+  .reader-layout { display: block; padding: 14px 14px 40px; }
+  .reader-layout .info-nav { position: static; flex-direction: row; overflow-x: auto; margin-bottom: 19px; }
+  .info-nav a { flex-shrink: 0; white-space: nowrap; }
+  .reading-grid, .reader .story { grid-template-columns: 1fr; }
+  .story img { height: 165px; min-height: 0; }
+  .hero-search { grid-template-columns: minmax(0, 1fr) 40px; }
+  .hero-search .stack, .hero-search .field { min-width: 0; }
+  .home-content .section > .spread { flex-wrap: wrap; }
+  .lab-heading, .lab-actions { padding-inline: 15px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .reader, .hero-copy, .waiting { animation: bus-enter .28s ease-out both; }
+  .news-card img, .destination-card img { transition: scale .3s ease; }
+  :where(.primary, .secondary, .icon-btn, .chip, .tab, .theme button):active:not(:disabled) { transform: scale(.97); }
+  .tracks path, .vertex circle { transition: stroke .24s ease, fill .24s ease; }
+  .theme button, .info-nav a { transition: background-color .18s, color .18s, transform .15s; }
+  @keyframes bus-enter { from { opacity: .25; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .news-card:hover img, .destination-card:focus-within img { scale: 1.025; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0s !important; transition-duration: 0s !important; }
+  .news-card:hover, .place-card:hover, .primary:hover { transform: none; }
+}
