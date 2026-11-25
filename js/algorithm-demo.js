@@ -29,4 +29,27 @@
   prev.addEventListener('click', () => { index = Math.max(index - 1, 0); render(); });
   next.addEventListener('click', () => { index = (index + 1) % steps.length; render(); });
   render();
+
+  const slider = document.getElementById('transfer-penalty');
+  const format = new Intl.NumberFormat('vi-VN', {minimumFractionDigits: 1, maximumFractionDigits: 1});
+  const directCost = 70;
+  const transferDistance = 58;
+  const display = tenths => format.format(tenths / 10);
+
+  function compareRoutes() {
+    // Work in tenths of a kilometre so the tie at 1.2 stays exact.
+    const penalty = Math.round(slider.valueAsNumber * 10);
+    const transferCost = transferDistance + penalty;
+    document.getElementById('penalty-value').textContent = display(penalty) + ' km quy đổi';
+    document.getElementById('direct-cost').textContent = display(directCost);
+    document.getElementById('transfer-cost').textContent = display(transferCost);
+
+    let verdict = 'Hai hành trình có cùng chi phí ' + display(directCost) + '.';
+    if (directCost < transferCost) verdict = 'Ưu tiên đi thẳng. Chi phí ' + display(directCost) + ' thấp hơn ' + display(transferCost) + '.';
+    if (transferCost < directCost) verdict = 'Ưu tiên đổi xe một lần. Chi phí ' + display(transferCost) + ' thấp hơn ' + display(directCost) + '.';
+    document.getElementById('penalty-result').textContent = verdict;
+  }
+
+  slider.addEventListener('input', compareRoutes);
+  compareRoutes();
 })();

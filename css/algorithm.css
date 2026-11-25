@@ -1,0 +1,88 @@
+.algorithm-reader [id] {
+  scroll-margin-top: calc(var(--header-height) + 18px);
+}
+
+.algorithm-jumps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.algorithm-jumps a {
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.algorithm-jumps a:hover,
+.algorithm-jumps a:focus-visible {
+  border-color: var(--accent);
+}
+
+.algorithm-reader h3 { margin-top: 18px; }
+.algorithm-reader .lab-reading h3 { margin-top: 7px; }
+
+.algorithm-facts,
+.algorithm-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(160px, 100%), 1fr));
+  gap: 10px;
+  margin: 15px 0 0;
+}
+
+.algorithm-facts > div,
+.algorithm-options > div {
+  padding: 13px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+}
+
+.algorithm-facts dt { color: var(--muted); font-size: 12px; }
+.algorithm-facts dd { margin: 5px 0 0; line-height: 1.5; }
+.algorithm-options h3 { margin: 0; }
+.algorithm-options strong { display: block; margin-top: 8px; }
+
+.algorithm-steps { margin: 12px 0 0; padding-left: 23px; }
+.algorithm-steps li + li { margin-top: 9px; }
+.algorithm-detail { margin-top: 16px; }
+.algorithm-detail summary { cursor: pointer; color: var(--accent); font-weight: 650; }
+.algorithm-detail summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+.algorithm-table-wrap {
+  margin-top: 13px;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+}
+
+.algorithm-table { width: 100%; min-width: 305px; border-collapse: collapse; text-align: left; }
+.algorithm-table th,
+.algorithm-table td { padding: 9px 11px; border-bottom: 1px solid var(--line); }
+.algorithm-table thead { background: var(--card2); }
+.algorithm-table tbody tr:last-child > * { border-bottom: 0; }
+.algorithm-table td { font-variant-numeric: tabular-nums; }
+
+.algorithm-slider {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 7px 12px;
+  margin-top: 18px;
+  align-items: center;
+}
+.algorithm-slider output { color: var(--accent); font-weight: 700; }
+.algorithm-slider input { grid-column: 1 / -1; width: 100%; min-height: 32px; margin: 0; accent-color: var(--accent); }
+.reader .card .algorithm-result {
+  padding: 10px 12px;
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  background: var(--card2);
+}
+
+@media (max-width: 480px) {
+  .algorithm-slider { grid-template-columns: 1fr; }
+  .algorithm-reader .lab-actions small { order: 1; flex-basis: 100%; }
+}

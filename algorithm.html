@@ -8,6 +8,7 @@
           <link rel="icon" href="data:,">
           <link rel="stylesheet" href="css/style.css">
           <link rel="stylesheet" href="css/interface.css">
+          <link rel="stylesheet" href="css/algorithm.css">
           <script defer src="js/interface.js"></script>
 <script defer src="js/algorithm-demo.js"></script>
         </head>
@@ -31,7 +32,42 @@
 <a href="algorithm.html" class="active" aria-current="page"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="5" r="3"/><circle cx="19" cy="5" r="3"/><circle cx="12" cy="19" r="3"/><path d="m8 5 8 0M6 8l4 8m8-8-4 8"/></svg>Thuật toán Dijkstra</a>
 <a href="news.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h4v5H7zm7 0h3m-3 4h3M7 16h10"/></svg>Tin tức</a>
 <a href="places.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>Điểm đến gợi ý</a>
-<a href="feedback.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11a9 9 0 0 1-9 9H3l2-5a9 9 0 1 1 16-4Z"/><path d="M8 11h.01m4 0h.01m4 0h.01"/></svg>Góp ý & Phản hồi</a></nav><article class="reader"><header class="reader-head"><h1>Thuật toán Dijkstra</h1><p>Từ một trạm xuất phát, làm thế nào để biết đường đang chọn là đường ngắn nhất? Đi qua ví dụ dưới đây để theo dõi từng lần cập nhật chi phí.</p></header><section class="lab card" aria-labelledby="lab-title">
+<a href="feedback.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11a9 9 0 0 1-9 9H3l2-5a9 9 0 1 1 16-4Z"/><path d="M8 11h.01m4 0h.01m4 0h.01"/></svg>Góp ý & Phản hồi</a></nav>
+<article class="reader algorithm-reader">
+  <header class="reader-head">
+    <h1>Thuật toán Dijkstra</h1>
+    <p>Từ đồ thị có trọng số đến lộ trình xe buýt. Duyệt từng bước tìm đường, thử thay đổi mức ưu tiên chuyển tuyến và đối chiếu với kết quả trên BUS ROUTE.</p>
+  </header>
+  <nav class="algorithm-jumps" aria-label="Nội dung trang Dijkstra">
+    <a href="#foundation">Bản chất</a><a href="#walkthrough">Duyệt từng bước</a>
+    <a href="#application">Mô hình xe buýt</a><a href="#result">Kết quả trên website</a>
+    <a href="#implementation">Cài đặt và kiểm thử</a>
+  </nav>
+  <section class="card article-copy" id="foundation">
+    <h2>Nguồn gốc và bài toán</h2>
+    <p>Nếu chỉ đếm số cạnh, hai hành trình qua hai đoạn sẽ có cùng chi phí dù độ dài từng đoạn rất khác nhau. Bài toán đường đi ngắn nhất cần xét <strong>tổng trọng số</strong> từ điểm xuất phát đến điểm đích. Edsger W. Dijkstra công bố phương pháp giải bài toán này trong một bài báo năm 1959.</p>
+    <p>Biểu diễn mạng bằng đồ thị <strong>G = (V, E)</strong>. Mỗi trạm là một đỉnh trong <strong>V</strong>. Mỗi đoạn nối hai trạm liên tiếp là một cạnh trong <strong>E</strong>. Một cạnh có trọng số không âm và có thể có hướng nếu xe chỉ đi được theo một chiều.</p>
+    <dl class="algorithm-facts">
+      <div><dt>Đầu vào</dt><dd>Đồ thị, trạm xuất phát, trạm đến và trọng số các cạnh.</dd></div>
+      <div><dt>Tiêu chí</dt><dd>Tổng trọng số nhỏ nhất trong các đường đi hợp lệ.</dd></div>
+      <div><dt>Đầu ra</dt><dd>Chi phí tối ưu và chuỗi trạm đi qua, hoặc thông báo không tìm được đường.</dd></div>
+    </dl>
+  </section>
+  <section class="card article-copy" aria-labelledby="method-title">
+    <h2 id="method-title">Dijkstra hoạt động như thế nào?</h2>
+    <ol class="algorithm-steps">
+      <li><strong>Khởi tạo.</strong> Đặt chi phí tới điểm đi bằng 0. Các đỉnh còn lại có chi phí tạm thời là ∞. Mỗi đỉnh chưa có đỉnh đứng trước.</li>
+      <li><strong>Chọn và chốt.</strong> Lấy đỉnh chưa chốt có chi phí tạm thời nhỏ nhất. Chi phí của đỉnh đó trở thành chi phí tối ưu.</li>
+      <li><strong>Nới lỏng cạnh.</strong> Từ đỉnh vừa chốt, thử đi tới từng đỉnh kề. Nếu đường mới rẻ hơn, cập nhật chi phí và lưu đỉnh đứng trước.</li>
+      <li><strong>Dừng và truy vết.</strong> Khi lấy đỉnh đích ra để chốt, lần ngược qua các đỉnh đứng trước rồi đảo danh sách. Nếu hết đỉnh có thể xét, báo không tìm được đường.</li>
+    </ol>
+    <div class="formula"><code>chi phí thử đến v = d[u] + trọng số(u, v)</code><small>Cập nhật d[v] và đỉnh đứng trước nếu chi phí thử nhỏ hơn d[v].</small></div>
+    <details class="algorithm-detail">
+      <summary>Vì sao đỉnh có chi phí nhỏ nhất được chốt?</summary>
+      <p>Giả sử còn một đường rẻ hơn đi tới đỉnh <strong>u</strong> vừa được chọn. Trên đường đó, xét đỉnh chưa chốt đầu tiên <strong>x</strong>. Cạnh đi tới x đã được xét từ đỉnh đứng trước đã chốt. Vì các cạnh còn lại có trọng số không âm, chi phí tạm thời của x không thể lớn hơn chi phí của đường giả định rẻ hơn tới u. Vậy x phải có chi phí nhỏ hơn u, mâu thuẫn với việc u được chọn là đỉnh có chi phí nhỏ nhất.</p>
+    </details>
+  </section>
+  <section class="lab card" id="walkthrough" aria-labelledby="lab-title">
   <div class="lab-heading"><h2 id="lab-title">Tìm đường từ A đến D</h2><span class="lab-unit">Trọng số cạnh · km</span></div>
   <div class="lab-body">
     <div class="graph-canvas">
@@ -57,29 +93,92 @@
       <dl id="distances" class="distances"><div><dt>A</dt><dd>0</dd></div><div><dt>B</dt><dd>∞</dd></div><div><dt>C</dt><dd>∞</dd></div><div><dt>D</dt><dd>∞</dd></div></dl>
     </div>
   </div>
-  <div class="lab-actions"><button type="button" class="secondary" id="prev-step" disabled>← Bước trước</button><button type="button" class="primary" id="next-step">Bước tiếp →</button></div>
+  <div class="lab-actions"><button type="button" class="secondary" id="prev-step" disabled>← Bước trước</button><small>Nét xanh · cạnh đang xét hoặc kết quả cuối</small><button type="button" class="primary" id="next-step">Bước tiếp →</button></div>
 </section>
-<section class="card article-copy"><h2>Mô hình mạng xe buýt</h2>
-  <p>Mỗi trạm là một <strong>đỉnh</strong>. Mỗi đoạn đường được phép đi giữa hai trạm là một <strong>cạnh</strong>. Trọng số cho biết chi phí đi hết đoạn đó. Trên đồ thị minh họa, các cạnh đi được hai chiều và trọng số là quãng đường tính bằng kilômét.</p>
-  <p>Nếu hai chiều của tuyến có các điểm dừng khác nhau, cần biểu diễn từng chiều bằng các cạnh có hướng. Nếu ưu tiên thời gian, mọi chi phí phải được quy về cùng đơn vị trước khi so sánh.</p>
-</section>
-<section class="card article-copy"><h2>Vì sao có thể chốt một trạm?</h2>
-  <p>Ở mỗi lượt, ta chọn trạm chưa chốt có chi phí tạm thời nhỏ nhất. Khi các cạnh đều có trọng số không âm, đi vòng qua một trạm chưa chốt khác cũng không thể tạo ra đường ngắn hơn tới trạm vừa chọn.</p>
-  <p>Với mỗi trạm kề, lấy chi phí đến trạm hiện tại cộng trọng số cạnh. Nếu tổng mới nhỏ hơn chi phí đã biết, ghi lại tổng mới và trạm đứng trước. Thao tác này gọi là <strong>nới lỏng cạnh</strong>.</p>
-  <div class="formula"><code>dự kiến = d[u] + trọng số(u, v)</code><small>Nếu dự kiến &lt; d[v], cập nhật d[v] và đặt trước[v] = u.</small></div>
-</section>
-<section class="card article-copy"><h2>Đọc kết quả và truy vết</h2>
-  <p>Khi xét A, ta có đường tới B dài 4 km. Qua C, chi phí tới B giảm còn 1 + 2 = 3 km. D được phát hiện lần đầu với chi phí 7 km qua C, rồi giảm còn 4 km qua B. Vì vậy, chỉ dừng khi D được chọn để chốt.</p>
-  <p>Từ D, lần theo trạm đứng trước được D ← B ← C ← A. Đảo thứ tự cho hành trình <strong>A → C → B → D, dài 4 km</strong>. Đường A → B → D ít chặng hơn nhưng dài 5 km.</p>
-</section>
-<section class="card article-copy"><h2>Khi đưa chuyển tuyến vào chi phí</h2>
-  <p>Hai hành khách đến cùng một trạm trên hai tuyến khác nhau có thể chịu chi phí khác nhau ở chặng kế tiếp. Có thể lưu trạng thái dưới dạng <strong>(trạm, tuyến đang đi)</strong> và cộng chi phí đổi xe khi tuyến thay đổi.</p>
-  <p>Ví dụ, nếu đo bằng phút, trọng số gồm thời gian di chuyển và thời gian chờ chuyển tuyến. Khi ấy kết quả tối ưu theo tổng số phút. Ví dụ bốn trạm phía trên chỉ tối ưu quãng đường.</p>
-</section>
-<section class="card article-copy"><h2>Điều kiện và trường hợp biên</h2>
-  <ul><li>Điểm đi trùng điểm đến có chi phí bằng 0.</li><li>Nếu hết trạm có thể xét mà đích vẫn ở ∞, hai điểm không có đường nối theo chiều đã chọn.</li><li>Hai đường có thể có cùng chi phí tối ưu. Đường được hiển thị phụ thuộc cách chọn khi bằng nhau.</li><li>Với danh sách kề và hàng đợi ưu tiên bằng heap nhị phân, thời gian là O((V + E) log V), với V đỉnh và E cạnh.</li></ul>
-  <a class="primary" href="directions.html">Đến trang Tìm đường →</a>
-</section>
+  <section class="card article-copy">
+    <h2>Bảng duyệt tay và cách truy vết</h2>
+    <p>Mỗi ô có dạng <strong>chi phí (đỉnh đứng trước)</strong>. So sánh cột D qua các lượt để thấy vì sao cần đợi tới lúc chốt đích.</p>
+    <div class="algorithm-table-wrap">
+      <table class="algorithm-table">
+        <thead><tr><th scope="col">Sau thao tác</th><th scope="col">A</th><th scope="col">B</th><th scope="col">C</th><th scope="col">D</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Khởi tạo</th><td>0</td><td>∞</td><td>∞</td><td>∞</td></tr>
+          <tr><th scope="row">Chốt A</th><td>0</td><td>4 (A)</td><td>1 (A)</td><td>∞</td></tr>
+          <tr><th scope="row">Chốt C</th><td>0</td><td>3 (C)</td><td>1 (A)</td><td>7 (C)</td></tr>
+          <tr><th scope="row">Chốt B</th><td>0</td><td>3 (C)</td><td>1 (A)</td><td>4 (B)</td></tr>
+          <tr><th scope="row">Chốt D</th><td>0</td><td>3 (C)</td><td>1 (A)</td><td>4 (B)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Lần theo từ D ta được D ← B ← C ← A. Đảo thứ tự cho hành trình <strong>A → C → B → D, dài 4 km</strong>. Đường A → B → D ít cạnh hơn nhưng dài 5 km.</p>
+  </section>
+  <section class="card article-copy" id="application">
+    <h2>Ứng dụng Dijkstra vào BUS ROUTE</h2>
+    <p>Website cần đề xuất hành trình dựa trên cả quãng đường và số lần đổi xe. Đến cùng một trạm bằng tuyến 08 hoặc tuyến 21 sẽ dẫn tới hai chi phí khác nhau khi đi tiếp trên tuyến 21. Vì vậy, thuật toán lưu trạng thái dưới dạng <strong>(mã trạm, mã tuyến đang đi)</strong>. Trạng thái đầu tiên chưa lên tuyến nào.</p>
+    <div class="formula"><code>chi phí hành trình = tổng km + số lần đổi tuyến × mức phạt</code><small>Bản mẫu dùng mức phạt 1,5 km quy đổi cho mỗi lần đổi tuyến. Lên xe lần đầu có mức phạt bằng 0.</small></div>
+    <div class="algorithm-table-wrap">
+      <table class="algorithm-table">
+        <thead><tr><th scope="col">Trạng thái hiện tại</th><th scope="col">Chặng tiếp theo</th><th scope="col">Chi phí cộng thêm</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Chưa lên xe</th><td>Bắt đầu tuyến 08</td><td>Quãng đường cạnh</td></tr>
+          <tr><th scope="row">Đang đi tuyến 21</th><td>Tiếp tục tuyến 21</td><td>Quãng đường cạnh</td></tr>
+          <tr><th scope="row">Đang đi tuyến 08</th><td>Đổi sang tuyến 21</td><td>Quãng đường cạnh + 1,5</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>Vì sao phải nhớ tuyến?</strong> Giả sử một hành khách đến trạm X bằng tuyến 08 với chi phí 3,0 và một hành khách khác bằng tuyến 21 với chi phí 3,5. Từ X đến đích có cạnh 2 km trên tuyến 21. Đi tiếp từ trạng thái đầu tốn tổng 6,5, còn trạng thái thứ hai chỉ tốn 5,5. Giữ một chi phí duy nhất cho X sẽ bỏ mất phương án thứ hai.</p>
+  </section>
+  <section class="card article-copy" aria-labelledby="penalty-title">
+    <h2 id="penalty-title">Thử điều chỉnh mức phạt chuyển tuyến</h2>
+    <p>Ví dụ minh họa với hai hành trình cùng điểm đi và điểm đến. Kéo thanh trượt để tìm ngưỡng làm phương án ưu tiên thay đổi.</p>
+    <div class="algorithm-slider">
+      <label for="transfer-penalty">Mức phạt mỗi lần đổi tuyến</label>
+      <output id="penalty-value" for="transfer-penalty">1,5 km quy đổi</output>
+      <input id="transfer-penalty" type="range" min="0" max="3" step="0.1" value="1.5">
+    </div>
+    <div class="algorithm-options">
+      <div><h3>Đi thẳng</h3><p>7,0 km · 0 lần đổi xe</p><strong>Chi phí <span id="direct-cost">7,0</span></strong></div>
+      <div><h3>Đổi xe một lần</h3><p>5,8 km · 1 lần đổi xe</p><strong>Chi phí <span id="transfer-cost">7,3</span></strong></div>
+    </div>
+    <p id="penalty-result" class="algorithm-result" role="status">Ưu tiên đi thẳng. Chi phí 7,0 thấp hơn 7,3.</p>
+    <p>Hai phương án bằng nhau tại mức phạt <strong>1,2</strong>. Mức phạt ở ví dụ này chỉ thay đổi phép so sánh trên trang giải thích.</p>
+  </section>
+  <section class="card article-copy" id="result">
+    <h2>Một hành trình trên bản mẫu</h2>
+    <p>Chọn <strong>Bến xe Quận 8 → Thảo Điền</strong>. Với dữ liệu mô phỏng đang có trong dự án, thuật toán trả về ba chặng sau.</p>
+    <ol class="algorithm-steps">
+      <li><strong>Tuyến 08</strong> đi từ Bến xe Quận 8 đến Chợ An Đông.</li>
+      <li><strong>Tuyến 21</strong> đi từ Chợ An Đông đến Hàng Xanh.</li>
+      <li><strong>Tuyến 03</strong> đi từ Hàng Xanh đến Thảo Điền.</li>
+    </ol>
+    <dl class="algorithm-facts">
+      <div><dt>Quãng đường ước tính</dt><dd><strong>17,0 km</strong></dd></div>
+      <div><dt>Số lần đổi tuyến</dt><dd><strong>2 lần</strong></dd></div>
+      <div><dt>Chi phí tối ưu quy đổi</dt><dd><strong>17,0 + 2 × 1,5 ≈ 20,0</strong></dd></div>
+    </dl>
+    <p>Trang Tìm đường nhóm các cạnh liên tiếp của cùng tuyến thành một chặng, hiển thị tên trạm chuyển tuyến và vẽ các chặng trên bản đồ. Thời gian khoảng <strong>60 phút</strong> được tính sau khi tìm đường từ vận tốc giả định 20 km/h và 4 phút cho mỗi lần đổi xe. Đây là số ước tính của mô hình.</p>
+    <a class="primary" href="directions.html?demo=1&amp;from=BX8&amp;to=TD">Mở hành trình minh họa trên bản đồ →</a>
+  </section>
+  <section class="card article-copy" id="implementation">
+    <h2>Từ dữ liệu đến kết quả hiển thị</h2>
+    <ol class="algorithm-steps">
+      <li><strong>Dựng danh sách kề.</strong> Từ thứ tự trạm trong mỗi tuyến, nối từng cặp trạm liên tiếp. Bản mẫu thêm cạnh cho hai chiều và dùng khoảng cách theo tọa độ nhân 1,25 để ước lượng độ dài cạnh.</li>
+      <li><strong>Tìm đường trên các trạng thái.</strong> <code>findPath</code> lấy trạng thái có chi phí thấp nhất, thử đi qua các cạnh kề và lưu trạng thái trước mỗi lần cải thiện. Dừng khi chốt một trạng thái có trạm là điểm đến.</li>
+      <li><strong>Truy vết và gom chặng.</strong> Duyệt ngược các trạng thái, đảo thứ tự rồi nhóm các cạnh theo tuyến đang đi. Điểm nối giữa hai nhóm là trạm chuyển tuyến.</li>
+    </ol>
+    <h3>Độ phức tạp và hướng mở rộng</h3>
+    <p>Với danh sách kề và hàng đợi ưu tiên dùng heap nhị phân có hỗ trợ cập nhật khóa, độ phức tạp thời gian là <strong>O((V′ + E′) log V′)</strong>, trong đó V′ và E′ là số trạng thái và chuyển tiếp của đồ thị mở rộng. Bản JavaScript hiện tại lấy phần tử nhỏ nhất bằng cách sắp xếp mảng ứng viên mỗi lượt. Khi số tuyến và trạm tăng, min-heap giúp tránh việc sắp xếp lại cả mảng.</p>
+    <p>Khi có dữ liệu thật, cần tách thứ tự trạm cho lượt đi và lượt về, kiểm tra điểm chuyển xe hợp lệ và thay quãng đường ước tính bằng quãng đường dọc tuyến. Nếu muốn tối ưu thời gian, chi phí cần được tính theo phút và lấy thêm thời gian chờ tương ứng.</p>
+    <h3>Những tình huống cần kiểm thử</h3>
+    <ul><li>Hai điểm trùng nhau cho chi phí 0 và không có chuyển tuyến.</li><li>Trạm không hợp lệ hoặc đích không thể đến được trả về kết quả rỗng để giao diện báo đúng trạng thái.</li><li>Đường được phát hiện trước vẫn có thể được cải thiện. Ví dụ D giảm từ 7 xuống 4 khi xét B.</li><li>Hai đường có cùng chi phí tối ưu có thể cho hai hành trình hợp lệ khác nhau.</li><li>Trọng số cạnh và mức phạt phải không âm để lập luận chốt đỉnh áp dụng được.</li></ul>
+  </section>
+  <section class="card article-copy" aria-labelledby="sources-title">
+    <h2 id="sources-title">Tài liệu tham khảo</h2>
+    <ul>
+      <li><a class="accent" href="https://doi.org/10.1007/BF01386390">E. W. Dijkstra (1959), A note on two problems in connexion with graphs</a></li>
+      <li><a class="accent" href="https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/resources/lecture-13-dijkstra/">MIT OpenCourseWare, 6.006 Lecture 13 · Dijkstra</a></li>
+    </ul>
+  </section>
 </article></div></main>
         </body>
         </html>
